@@ -1,0 +1,58 @@
+﻿<Window x:Class="spider.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:spider"
+        mc:Ignorable="d"
+        Title="电影BT种子采集 developed by 熊跃辉" Height="900" Width="1920">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="42*"/>
+            <ColumnDefinition Width="201*"/>
+            <ColumnDefinition Width="1669*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="208*"/>
+            <RowDefinition Height="111*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="UrlBox" FontSize="20" HorizontalAlignment="Left" Height="43" Margin="118,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="666" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Button x:Name="button" Content="开始采集" HorizontalAlignment="Left" Margin="598,55,0,0" VerticalAlignment="Top" Height="43" Click="button_Click" Width="93" Grid.Column="2"/>
+        <ListView x:Name="listViewBox" 
+            HorizontalAlignment="Left" 
+            Height="730" 
+            Margin="19,103,0,0" 
+            VerticalAlignment="top" 
+            Width="1854" Grid.ColumnSpan="3" Grid.RowSpan="2"  >
+            <ListView.View>
+                <GridView x:Name="gvShow">
+                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Title}" Header="电影名称" />
+                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding Year}" Header="年份" />
+                    <GridViewColumn Width="500"   Header="故事描述">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Desc}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100"  Header="图片">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Img}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="700"   Header="BT种子" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Bt}" PreviewMouseLeftButtonDown="textblock_Click" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label x:Name="label" Content="请输入电影入口地址" HorizontalAlignment="Left" Margin="33,62,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="122"/>
+
+    </Grid>
+</Window>

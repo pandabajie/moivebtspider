@@ -1,0 +1,20 @@
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\bin\Debug\spider.exe.config
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\bin\Debug\spider.exe
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\bin\Debug\spider.pdb
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\spider.csprojResolveAssemblyReference.cache
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\MainWindow.g.cs
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\App.g.cs
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\spider_MarkupCompile.cache
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\spider_MarkupCompile.lref
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\MainWindow.baml
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\spider.g.resources
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\spider.Properties.Resources.resources
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\spider.csproj.GenerateResource.Cache
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\spider.exe
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\obj\Debug\spider.pdb
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\bin\Debug\HtmlAgilityPack.dll
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\PC\Documents\Visual Studio 2015\Projects\spider\spider\bin\Debug\HtmlAgilityPack.xml
+F:\work\git\myself\moivebtspider\spider\bin\Debug\spider.exe.config
+F:\work\git\myself\moivebtspider\spider\obj\Debug\spider.exe
+F:\work\git\myself\moivebtspider\spider\obj\Debug\spider.pdb
