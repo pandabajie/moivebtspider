@@ -26,22 +26,14 @@
             Width="1854" Grid.ColumnSpan="3" Grid.RowSpan="2"  >
             <ListView.View>
                 <GridView x:Name="gvShow">
-                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Title}" Header="电影名称" />
-                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding Year}" Header="年份" />
-                    <GridViewColumn Width="500"   Header="故事描述">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Desc}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="100"  Header="图片">
+                    <GridViewColumn Width="100"  Header="海报图片">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Source="{Binding Img}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding Title}" Header="电影名称" />
                     <GridViewColumn Width="700"   Header="BT种子" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -49,6 +41,14 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn Width="500"   Header="故事描述">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Desc}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding Year}" Header="年份" />
                 </GridView>
             </ListView.View>
         </ListView>
