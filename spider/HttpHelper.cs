@@ -26,7 +26,13 @@ namespace spider
             }
             else
             {
-                request = WebRequest.Create(url) as HttpWebRequest;
+                try
+                {
+                    request = WebRequest.Create(url) as HttpWebRequest;
+                }
+                catch {
+                    return null;
+                }
             }
             request.Method = "GET";
 

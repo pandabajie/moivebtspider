@@ -22,7 +22,7 @@
         <ListView x:Name="listViewBox" 
             HorizontalAlignment="Left" 
             Height="730" 
-            Margin="0,105,0,0" 
+            Margin="0,116,0,0" 
             VerticalAlignment="top" 
             Width="1854" Grid.ColumnSpan="3" Grid.RowSpan="2" Grid.Column="1"  >
             <ListView.View>
@@ -61,6 +61,7 @@
         </ListView>
         <Label x:Name="label" Content="请输入电影入口地址" HorizontalAlignment="Left" Margin="38,62,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="122"/>
         <ComboBox x:Name="comboBox" Grid.Column="2" HorizontalAlignment="Left" Margin="589,65,0,0" VerticalAlignment="Top" Width="130" Height="19" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="infoMsg" Grid.Column="1" HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFD0000"/>
 
     </Grid>
 </Window>
