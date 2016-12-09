@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -26,6 +27,16 @@ namespace spider
         public MainWindow()
         {
             InitializeComponent();
+            Dictionary<int, string> mydic = new Dictionary<int, string>()
+            {
+                {0,"请选择页面类型"},
+                {1,"单面页"},
+                {2,"列表页"}
+            };
+            comboBox.ItemsSource = mydic;
+            comboBox.SelectedValuePath = "Key";
+            comboBox.DisplayMemberPath = "Value";
+            comboBox.SelectedIndex = 0;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -41,65 +52,70 @@ namespace spider
                 Uri u = new Uri(url);
                 string strAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:2.0b13pre) Gecko/20110307 Firefox/4.0b13pre";
                 HttpWebResponse res = HttpHelper.CreateGetHttpResponse(url, 300, strAgent, null);
+                if (res == null)
+                {
+                    MessageBox.Show("URL无法访问");
+                    return;
+                }
                 string html = HttpHelper.GetResponseString(res);
+                List<Movie> roomList = new List<Movie>();
+                int nextPage = 1;
                 switch (u.Host)
                 {
                     case "www.btba.com.cn":
                         HtmlDocument doc = new HtmlDocument();
-                        doc.LoadHtml(html);
-                        HtmlNodeCollection collection = doc.DocumentNode.SelectNodes("//div[@class='left']/ul/li");
-                        List<Movie> roomList = new List<Movie>();
-                        foreach (HtmlNode child in collection)
-                        {
-                            HtmlNode linode = HtmlNode.CreateNode(child.OuterHtml);
-                            string sourceUrl = linode.SelectSingleNode("//a[@class='a']").Attributes["href"].Value;
-                            HttpWebResponse resBtba = HttpHelper.CreateGetHttpResponse(sourceUrl, 300, strAgent, null);
-                            string htmlBtba = HttpHelper.GetResponseString(resBtba);
-                            HtmlDocument docBtba = new HtmlDocument();
-                            docBtba.LoadHtml(htmlBtba);
-                            //获取图片
-                            HtmlNode node = docBtba.DocumentNode.SelectSingleNode("//div[@class='box']/div[@class='l']/img");
-                            string imgSource = node.Attributes["src"].Value;
-                            //获取内容描述
-                            node = docBtba.DocumentNode.SelectSingleNode("//div[@class='detail']");
-                            string desc = node.InnerText;
-                            //获取BT的URL地址
-                            node = docBtba.DocumentNode.SelectSingleNode("//div[@class='btinfo']/h3/a");
-                            string btUrl = node.Attributes["href"].Value;
-                            resBtba = HttpHelper.CreateGetHttpResponse(btUrl, 300, strAgent, null);
-                            htmlBtba = HttpHelper.GetResponseString(resBtba);
-                            docBtba.LoadHtml(htmlBtba);
-                            //获取BT的真实种子地址
-                            node = docBtba.DocumentNode.SelectSingleNode("//textarea[@id='status']");
-                            string BtSource = node.InnerText;
-                            var newitem = new Movie()
+                        do {
+                            doc.LoadHtml(html);
+                            HtmlNodeCollection collection = doc.DocumentNode.SelectNodes("//div[@class='left']/ul/li");
+                            foreach (HtmlNode child in collection)
                             {
-                                Title = linode.SelectSingleNode("//h3/a").InnerText,
-                                Year = linode.SelectSingleNode("//h3/b").InnerText,
-                                Url = sourceUrl,
-                                Bt = BtSource,
-                                Img = imgSource,
-                                Desc = HttpHelper.NoHTML(desc),
+                                HtmlNode linode = HtmlNode.CreateNode(child.OuterHtml);
+                                //获取单页详情地址
+                                string sourceUrl = linode.SelectSingleNode("//a[@class='a']").Attributes["href"].Value;
+                                var newitem = MovieDetailInfo.getBtbaMovieInfo(sourceUrl);
+                                foreach (System.Reflection.PropertyInfo p in newitem.GetType().GetProperties())
+                                {
+                                    Console.WriteLine("Name:{0} Value:{1}", p.Name, p.GetValue(newitem));
+                                }
+                                if (newitem != null)
+                                {
+                                    roomList.Add(newitem);
+                                }
 
-                            };
-                            roomList.Add(newitem);
-                        }
-                        listViewBox.ItemsSource = roomList; ;
+                            }
+                            listViewBox.ItemsSource = roomList; ;
+                            HtmlNode node = doc.DocumentNode.SelectSingleNode("//div[@id='page']/b");
+                            if (node != null)
+                            {
+                                int currentPage = Convert.ToInt32(node.InnerText);
+                                Console.WriteLine(currentPage);
+                                nextPage = currentPage + 1;
 
-                        break;
+                            }
+                            string nexturl = url + "?page=" + nextPage.ToString();
+                            res = HttpHelper.CreateGetHttpResponse(nexturl, 300, strAgent, null);
+                            html = HttpHelper.GetResponseString(res);
+                            Console.WriteLine(nexturl);
+                        } while ( nextPage < 3);
+                       
+                        
+                       
+
+                       
+
+                    break;
                     default:
                         MessageBox.Show("暂时不支持采集该站点");
-                        break;
+                    break;
                 }
-            }
+             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                
             }
-           
-           
-        }
+}
+
+    
 
         private void textblock_Click(object sender, MouseButtonEventArgs e)
         {
@@ -108,12 +124,37 @@ namespace spider
             try
             {
                 Clipboard.SetText(btString);
+                MessageBox.Show("复制成功");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            MessageBox.Show("复制成功");
+            
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            string str = this.getRealUrlUsingYoutubeDL("http://v.youku.com/v_show/id_XMTgxMzQwNTI2NA==.html?from=y1.3-edu-newgrid-2153-10194.90153-90496.3-1");
+            Console.WriteLine(str);
+        }
+
+
+        public string getRealUrlUsingYoutubeDL(string YoukuUrl)
+        {
+            string fileName = @"youtube-dl.exe";
+            Process p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.FileName = fileName;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.Arguments = string.Format(" --get-url --skip-download {0}", YoukuUrl);
+            p.Start();
+            p.WaitForExit(5000);//亲测，youtube-dl会因为不知道什么原因阻塞。。
+            string output = p.StandardOutput.ReadToEnd();
+            return output;
+            //return output.Split('\n');//最后一个是""，自己处理吧
+
         }
     }
 }

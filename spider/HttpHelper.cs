@@ -147,6 +147,28 @@ namespace spider
             //返回去掉html标记的字符串
             return Htmlstring;
         }
+
+        public static bool UrlCheck(string strUrl)
+        {
+            if (!strUrl.Contains("http://") && !strUrl.Contains("https://"))
+            {
+                strUrl = "http://" + strUrl;
+            }
+            try
+            {
+                HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(strUrl);
+                myRequest.Method = "HEAD";
+                myRequest.Timeout = 1000;  //超时时间1秒
+                HttpWebResponse res = (HttpWebResponse)myRequest.GetResponse();
+                return (res.StatusCode == HttpStatusCode.OK);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
     }
 
 }
