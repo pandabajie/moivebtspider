@@ -29,6 +29,7 @@ namespace spider
         delegate void BindDataAsync();
         string url;
         string selectType;
+        List<Movie> movieList = new List<Movie>();
 
         public MainWindow()
         {
@@ -48,6 +49,7 @@ namespace spider
         {
             url = UrlBox.Text.ToString();
             selectType = (string)comboBox.SelectedValue;
+            listViewBox.ItemsSource = new List<Movie>();
             BeginBindData();
         }
 
@@ -80,8 +82,9 @@ namespace spider
             }));
 
 
-            List<Movie> movieList = new List<Movie>();
-            
+            movieList = new List<Movie>();
+
+
             if (url == String.Empty)
             {
                 MessageBox.Show("请填写URL地址");
