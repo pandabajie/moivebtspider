@@ -8,6 +8,7 @@
         Title="电影BT种子采集器 developed by 熊跃辉" Height="900" Width="1920">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="42*"/>
             <ColumnDefinition Width="201*"/>
             <ColumnDefinition Width="592*"/>
@@ -17,14 +18,14 @@
             <RowDefinition Height="208*"/>
             <RowDefinition Height="111*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="UrlBox" FontSize="14" HorizontalAlignment="Left" Height="20" Margin="118,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="666" Grid.ColumnSpan="2" Grid.Column="1"/>
-        <Button x:Name="button" Content="开始采集" HorizontalAlignment="Left" Margin="132,65,0,0" VerticalAlignment="Top" Height="20" Click="button_Click" Width="93" Grid.Column="3"/>
+        <TextBox x:Name="UrlBox" FontSize="14" HorizontalAlignment="Left" Height="20" Margin="118,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="666" Grid.ColumnSpan="2" Grid.Column="2"/>
+        <Button x:Name="button" Content="开始采集" HorizontalAlignment="Left" Margin="132,65,0,0" VerticalAlignment="Top" Height="20" Click="button_Click" Width="93" Grid.Column="4"/>
         <ListView x:Name="listViewBox" 
             HorizontalAlignment="Left" 
-            Height="484" 
+            Height="724" 
             Margin="0,116,0,0" 
             VerticalAlignment="top" 
-            Width="1854" Grid.ColumnSpan="3" Grid.RowSpan="2" Grid.Column="1"  >
+            Width="1854" Grid.ColumnSpan="3" Grid.RowSpan="2" Grid.Column="2"  >
             <ListView.View>
                 <GridView x:Name="gvShow">
                     <GridViewColumn Width="100"  Header="海报图片">
@@ -59,9 +60,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="label" Content="请输入电影入口地址" HorizontalAlignment="Left" Margin="38,62,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="122"/>
-        <ComboBox x:Name="comboBox" Grid.Column="2" HorizontalAlignment="Left" Margin="589,65,0,0" VerticalAlignment="Top" Width="130" Height="19" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="infoMsg" Grid.Column="1" HorizontalAlignment="Left" Margin="10,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFD0000"/>
+        <Label x:Name="label" Content="请输入电影入口地址" HorizontalAlignment="Left" Margin="38,62,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="122"/>
+        <ComboBox x:Name="comboBox" Grid.Column="3" HorizontalAlignment="Left" Margin="589,65,0,0" VerticalAlignment="Top" Width="130" Height="19" Grid.ColumnSpan="2"/>
+        <Label x:Name="tsStatus" Content="准备就绪" Grid.Column="2" HorizontalAlignment="Left" Margin="0,85,0,0" Foreground="#FFFD0000" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

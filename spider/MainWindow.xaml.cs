@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace spider
 {
@@ -25,6 +26,7 @@ namespace spider
     public partial class MainWindow : Window
     {
         public bool flag = true;
+        delegate void BindDataAsync();
 
         public MainWindow()
         {
@@ -41,11 +43,55 @@ namespace spider
         }
 
 
+        private void BeginBindData()
+        {
+            BindDataAsync bindData = new BindDataAsync(BindData);
+            IAsyncResult iar = bindData.BeginInvoke(new AsyncCallback(EndBindData), bindData);
+            tsStatus.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                tsStatus.Content = "正在加载中。。。";
+            }));
+        }
+
+        private void EndBindData(IAsyncResult iar)
+        {
+            tsStatus.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                tsStatus.Content = "加载完毕。。。";
+            }));
+            BindDataAsync bindData = (BindDataAsync)iar.AsyncState;
+            bindData.EndInvoke(iar);
+        }
+
+        private void BindData()
+        {
+            tsStatus.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+                tsStatus.Content = "正在绑定数据，请稍候。。。";
+            }));
+
+            listViewBox.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
+            {
+
+                getMovieData();
+
+            }));
+        }
+
+
+
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
+            BeginBindData();
+        }
+
+
+        private void getMovieData()
+        {
+            List<Movie> movieList = new List<Movie>();
             string url = UrlBox.Text.ToString();
             string selectType = (string)comboBox.SelectedValue;
-            infoMsg.Text = "正在采集中，请稍候";
             if (url == String.Empty)
             {
                 MessageBox.Show("请填写URL地址");
@@ -55,7 +101,6 @@ namespace spider
             {
                 Uri u = new Uri(url);
                 Movie newitem;
-                List<Movie> movieList = new List<Movie>();
                 switch (selectType)
                 {
                     case "single":
@@ -64,9 +109,9 @@ namespace spider
                             case "www.btba.com.cn":
                                 newitem = MovieDetailInfo.getBtbaMovieInfo(url);
                                 movieList.Add(newitem);
-                            break;
+                                break;
                         }
-                    break;
+                        break;
                     case "list":
                         string strAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:2.0b13pre) Gecko/20110307 Firefox/4.0b13pre";
                         HttpWebResponse res = HttpHelper.CreateGetHttpResponse(url, 300, strAgent, null);
@@ -76,7 +121,7 @@ namespace spider
                             return;
                         }
                         string html = HttpHelper.GetResponseString(res);
-                        
+
                         int nextPage = 1;
                         HtmlNode nextNode;
                         switch (u.Host)
@@ -144,7 +189,7 @@ namespace spider
                                         continue;
                                     }
                                 } while (true);
-                                
+
                                 break;
                             default:
                                 MessageBox.Show("暂时不支持采集该站点");
@@ -153,16 +198,14 @@ namespace spider
                         break;
                 }
                 //数据统一装进来
-                infoMsg.Text = "采集完毕";
                 listViewBox.ItemsSource = movieList;
             }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        
 
         private void textblock_Click(object sender, MouseButtonEventArgs e)
         {
