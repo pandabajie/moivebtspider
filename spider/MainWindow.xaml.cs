@@ -42,6 +42,11 @@ namespace spider
             comboBox.SelectedIndex = 1;
         }
 
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            BeginBindData();
+        }
+
 
         private void BeginBindData()
         {
@@ -72,19 +77,14 @@ namespace spider
 
             listViewBox.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(delegate
             {
-
                 getMovieData();
-
             }));
         }
 
 
 
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            BeginBindData();
-        }
+        
 
 
         private void getMovieData()
