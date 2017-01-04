@@ -32,3 +32,8 @@ F:\work\git\myself\moivebtspider\spider\obj\Debug\MainWindow.baml
 F:\work\git\myself\moivebtspider\spider\obj\Debug\spider.g.resources
 F:\work\git\myself\moivebtspider\spider\obj\Debug\spider.Properties.Resources.resources
 F:\work\git\myself\moivebtspider\spider\obj\Debug\spider.csproj.GenerateResource.Cache
+F:\work\git\myself\moivebtspider\spider\bin\Debug\MahApps.Metro.dll
+F:\work\git\myself\moivebtspider\spider\bin\Debug\System.Windows.Interactivity.dll
+F:\work\git\myself\moivebtspider\spider\bin\Debug\MahApps.Metro.pdb
+F:\work\git\myself\moivebtspider\spider\bin\Debug\MahApps.Metro.xml
+F:\work\git\myself\moivebtspider\spider\obj\Debug\App.baml

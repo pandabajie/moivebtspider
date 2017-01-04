@@ -2,28 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
-
+using MahApps.Metro.Controls;
 namespace spider
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public bool flag = true;
         delegate void BindDataAsync();
@@ -60,7 +50,7 @@ namespace spider
             IAsyncResult iar = bindData.BeginInvoke(new AsyncCallback(EndBindData), bindData);
             tsStatus.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
-                tsStatus.Content = "正在加载中。。。";
+                tsStatus.Content = "正在采集中。。。";
             }));
         }
 
@@ -68,7 +58,7 @@ namespace spider
         {
             tsStatus.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
-                tsStatus.Content = "加载完毕。。。";
+                tsStatus.Content = "采集完毕。。。";
             }));
             BindDataAsync bindData = (BindDataAsync)iar.AsyncState;
             bindData.EndInvoke(iar);
@@ -78,7 +68,7 @@ namespace spider
         {
             tsStatus.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
-                tsStatus.Content = "正在绑定数据，请稍候。。。";
+                tsStatus.Content = "正在采集数据，请稍候。。。";
             }));
 
 
@@ -186,7 +176,7 @@ namespace spider
                                 break;
                             default:
                                 MessageBox.Show("暂时不支持采集该站点");
-                                break;
+                            break;
                         }
                         break;
                 }
