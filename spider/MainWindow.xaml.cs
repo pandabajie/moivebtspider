@@ -52,10 +52,7 @@ namespace spider
         {
             BindDataAsync bindData = new BindDataAsync(BindData);
             IAsyncResult iar = bindData.BeginInvoke(new AsyncCallback(EndBindData), bindData);
-            tsStatus.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                tsStatus.Content = "正在采集中。。。";
-            }));
+            
         }
 
         private void EndBindData(IAsyncResult iar)

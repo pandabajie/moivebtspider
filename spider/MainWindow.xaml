@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Icon="fav.ico"
-        Title="电影BT种子采集器 developed by 熊跃辉" Height="900" Width="1120">
+        Title="电影BT种子采集器 developed by 熊跃辉" Height="900" Width="1150">
     <Grid Margin="0,0,2,-8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="64*"/>
@@ -19,7 +19,7 @@
         <ListView x:Name="listViewBox" 
             HorizontalAlignment="Left" 
             Margin="25,90,0,0"  
-            Width="1060" Height="689" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.ColumnSpan="2"  >
+            Width="1100" Height="689" VerticalAlignment="Top" Grid.ColumnSpan="2" Background="#FF291717"  >
             <ListView.View>
                 <GridView x:Name="gvShow">
                     <GridViewColumn Width="100"  Header="海报图片">
