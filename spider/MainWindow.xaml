@@ -6,53 +6,59 @@
         xmlns:local="clr-namespace:spider"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
+        Icon="fav.ico"
         Title="电影BT种子采集器 developed by 熊跃辉" Height="900" Width="1120">
     <Grid Margin="0,0,2,-8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="64*"/>
+            <ColumnDefinition Width="491*"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="UrlBox" FontSize="14" Height="27" Margin="150,26,417,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="开始采集" Margin="0,26,194,0" VerticalAlignment="Top" Height="28" Click="button_Click" RenderTransformOrigin="-0.785,0.5" HorizontalAlignment="Right" Width="74"/>
+        <TextBox x:Name="UrlBox" FontSize="14" Height="27" Margin="22,26,417,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"/>
+        <Button x:Name="button" Content="开始采集" Margin="0,26,194,0" VerticalAlignment="Top" Height="28" Click="button_Click" RenderTransformOrigin="-0.785,0.5" HorizontalAlignment="Right" Width="74" Grid.Column="1"/>
         <ListView x:Name="listViewBox" 
             HorizontalAlignment="Left" 
-            Margin="25,90,0,0" 
-            Width="1060" Height="689" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"  >
+            Margin="25,90,0,0"  
+            ItemsSource="{Binding Path=movieList}"
+            Width="1060" Height="689" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.ColumnSpan="2"  >
             <ListView.View>
                 <GridView x:Name="gvShow">
                     <GridViewColumn Width="100"  Header="海报图片">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding Img}" />
+                                <Image Source="{Binding Path=Img}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="150"   Header="电影名称">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Title}" />
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Title}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="530"   Header="真实片源地址（BT种子）" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Bt}" PreviewMouseLeftButtonDown="textblock_Click" />
+                                <TextBlock TextWrapping="Wrap"  Text="{Binding Path=Bt}" PreviewMouseLeftButtonDown="textblock_Click" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="200"   Header="故事描述">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Desc}" />
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Desc}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding PubDate}" Header="上映时间" />
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Path=PubDate}" Header="上映时间" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label x:Name="label" Content="请输入电影入口地址" HorizontalAlignment="Left" Margin="22,28,0,0" VerticalAlignment="Top" Width="122"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Right" Margin="0,27,277,0" VerticalAlignment="Top" Width="130" Height="26"/>
-        <Label x:Name="tsStatus" Content="准备就绪" Margin="25,56,0,0" Foreground="#FFFD0000" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58"/>
-        <Label x:Name="label1" Content="说明：&#xD;&#xA;本程序为电影BT种子采集器，仅供学习参考之用。采集源目前只有http://www.btba.com.cn，其他站点的资源可以自行定制。&#xD;&#xA;使用时，请在地址栏输入类似http://www.btba.com.cn/type/%E5%8A%A8%E4%BD%9C.html就可以点击开始采集按钮了。" HorizontalAlignment="Left" Margin="22,797,0,0" VerticalAlignment="Top" Width="818"/>
+        <Label x:Name="label" Content="请输入电影入口地址" HorizontalAlignment="Left" Margin="22,28,0,0" VerticalAlignment="Top" Width="122" Grid.ColumnSpan="2"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Right" Margin="0,27,277,0" VerticalAlignment="Top" Width="130" Height="26" Grid.Column="1"/>
+        <Label x:Name="tsStatus" Content="准备就绪" Margin="25,56,0,0" Foreground="#FFFD0000" VerticalAlignment="Top" HorizontalAlignment="Left" Width="670" Grid.ColumnSpan="2"/>
+        <Label x:Name="label1" Content="说明：&#xD;&#xA;本程序为电影BT种子采集器，仅供学习参考之用。采集源目前只有http://www.btba.com.cn，其他站点的资源可以自行定制。&#xD;&#xA;使用时，请在地址栏输入类似http://www.btba.com.cn/type/%E5%8A%A8%E4%BD%9C.html就可以点击开始采集按钮了。" HorizontalAlignment="Left" Margin="22,797,0,0" VerticalAlignment="Top" Width="818" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Controls:MetroWindow>
