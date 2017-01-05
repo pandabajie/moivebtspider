@@ -19,7 +19,6 @@
         <ListView x:Name="listViewBox" 
             HorizontalAlignment="Left" 
             Margin="25,90,0,0"  
-            ItemsSource="{Binding Path=movieList}"
             Width="1060" Height="689" VerticalAlignment="Top" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.ColumnSpan="2"  >
             <ListView.View>
                 <GridView x:Name="gvShow">

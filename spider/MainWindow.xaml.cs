@@ -22,6 +22,7 @@ namespace spider
         string url;
         string selectType;
         string nextUrl;
+        int movieCount = 0;
         ObservableCollection<Movie> movieList = new ObservableCollection<Movie>();
 
         public MainWindow()
@@ -61,7 +62,7 @@ namespace spider
         {
             tsStatus.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
-                tsStatus.Content = "采集完毕。。。";
+                tsStatus.Content = "采集完毕，一共采集了"+ this.movieCount +"部影片";
             }));
             BindDataAsync bindData = (BindDataAsync)iar.AsyncState;
             bindData.EndInvoke(iar);
@@ -94,6 +95,7 @@ namespace spider
                         break;
                     //列表页
                     case "list":
+                        movieCount = 0;
                         string strAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:2.0b13pre) Gecko/20110307 Firefox/4.0b13pre";
                         HttpWebResponse res = HttpHelper.CreateGetHttpResponse(this.url, 300, strAgent, null);
                         if (res == null)
@@ -126,7 +128,13 @@ namespace spider
                                         //}
                                         if (newitem != null)
                                         {
-                                            movieList.Add(newitem);
+                                            listViewBox.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
+                                            {
+                                                //数据统一装进来
+                                                movieList.Add(newitem);
+                                                listViewBox.ItemsSource = movieList;
+                                            }));
+                                            this.movieCount++;
                                         }
 
                                     }
@@ -156,7 +164,7 @@ namespace spider
 
                                     tsStatus.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
                                     {
-                                        tsStatus.Content = "正在采集数据，请稍候。。。" + this.nextUrl;
+                                        tsStatus.Content = "正在"+ this.nextUrl + "页面采集数据，请稍候。。。";
                                     }));
 
                                     res = HttpHelper.CreateGetHttpResponse(nextUrl, 300, strAgent, null);
@@ -184,11 +192,7 @@ namespace spider
                 MessageBox.Show(ex.Message);
             }
 
-            listViewBox.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
-            {
-                //数据统一装进来
-                listViewBox.ItemsSource = movieList;
-            }));
+            
 
 
 
