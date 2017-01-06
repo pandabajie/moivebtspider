@@ -44,6 +44,7 @@ namespace spider
             this.url = UrlBox.Text.ToString();
             this.selectType = (string)comboBox.SelectedValue;
             listViewBox.ItemsSource = new List<Movie>();
+            btnStart.IsEnabled = false;
             BeginBindData();
         }
 
@@ -60,6 +61,7 @@ namespace spider
             tsStatus.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(delegate
             {
                 tsStatus.Content = "采集完毕，一共采集了"+ this.movieCount +"部影片";
+                btnStart.IsEnabled = true;
             }));
             BindDataAsync bindData = (BindDataAsync)iar.AsyncState;
             bindData.EndInvoke(iar);
