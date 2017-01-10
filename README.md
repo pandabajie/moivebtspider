@@ -12,3 +12,7 @@ http://blog.csdn.net/u013201439/article/details/50935257
 第二种安装方法
 通过NuGet GUI(右键单击您的项目,点击NuGet包管理中,选择在线和搜索MahApps.Metro)或包管理器控制台:
 PM> Install-Package MahApps.Metro
+
+
+演示：
+![image](http://www.yizhou-speed.com/uploads/1.gif)

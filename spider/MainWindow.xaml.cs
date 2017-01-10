@@ -190,12 +190,6 @@ namespace spider
             {
                 MessageBox.Show(ex.Message);
             }
-
-            
-
-
-
-
         }
 
         private void textblock_Click(object sender, MouseButtonEventArgs e)
